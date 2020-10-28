@@ -5,9 +5,6 @@ var header = document.createElement("header");
 var nav = document.createElement("nav");
 nav.classList.add("nav");
 
-// var card = document.createElement("card");
-// content.append(card);
-
 var highScoreLink = document.createElement("a");
 highScoreLink.classList.add("nav-link");
 highScoreLink.href = "#";
@@ -117,7 +114,6 @@ function renderQuestion(prevOutcome) {
   var questionDiv = document.createElement("div");
   var questionPrompt = document.createElement("h1");
   questionPrompt.textContent = question.prompt;
-  // questionDiv.classList.add("start-title")
   var answerList = document.createElement("ol");
   for (let i = 0; i < question.answers.length; i++) {
     var li = document.createElement("ol");
@@ -161,7 +157,7 @@ function renderEndScreen(prevOutcome) {
     event.preventDefault();
     var initials = initialsInput.value.trim();
     if (initials === "") {
-      alert("Please enter your initals");
+      alert("Please enter your initials");
       return;
     }
     addScore({
