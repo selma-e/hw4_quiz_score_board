@@ -5,6 +5,9 @@ var header = document.createElement("header");
 var nav = document.createElement("nav");
 nav.classList.add("nav");
 
+// var card = document.createElement("card");
+// content.append(card);
+
 var highScoreLink = document.createElement("a");
 highScoreLink.classList.add("nav-link");
 highScoreLink.href = "#";
@@ -25,7 +28,7 @@ header.append(nav);
 
 var main = document.createElement("main");
 var content = document.createElement("div");
-content.classList.add("container", "my-3");
+content.classList.add("container", "mx-auto");
 main.append(content);
 rootDiv.append(header, main);
 
@@ -35,9 +38,11 @@ var timeRemaining = 0;
 
 var currentQuestion = 0;
 var questions = [
-  {prompt:"Question 1", answers: ["a", "b", "c", "d"], correct: 1},
-  {prompt:"Question 2", answers: ["a", "b", "c", "d"], correct: 2},
-  {prompt:"Question 3", answers: ["a", "b", "c", "d"], correct: 0}
+  {prompt:"Arrays in JavaScript can be used to store ____.", answers: ["numbers and strings", "other arrays", "booleans", "all of the above"], correct: 3},
+  {prompt:"Commonly used data types DO NOT include:", answers: ["strings", "booleans", "alerts", "numbers"], correct: 2},
+  {prompt:"The condition in an if/else statement is enclosed within ____.", answers: ["quotes", "curly brackets", "parentheses", "square brackets"], correct: 1},
+  {prompt:"String values must be enclosed within ____ when being assigned to variables.", answers: ["commas", "curly brackets", "quotes", "parentheses"], correct: 2},
+  {prompt:"A very useful tool used during development and debugging for printing content to the debugger is:", answers: ["JavaScript", "terminal/bash", "for loops", "console.log"], correct: 3}
 ];
 
 var score = 0;
@@ -57,6 +62,7 @@ function startTimer(){
     if (timeRemaining <= 0) {
       setTime(0);
       clearInterval(timeHandle);
+      alert ("You ran out of time!");
       renderEndScreen();
     }
   }, 1000);
@@ -83,8 +89,15 @@ function addScore(scoreData) {
 
 function renderStartScreen() {
   content.innerHTML = "";
+  
+  var startHeader = document.createElement("h1");
+  var startIntro = document.createElement("p")
   var startButton = document.createElement("button");
-  startButton.classList.add("btn", "btn-secondary");
+  startIntro.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/timer by ten seconds!";
+  startIntro.classList.add("intro-paragraph", "mx-auto");
+  startHeader.textContent = "Coding Quiz Challenge";
+  startHeader.classList.add("start-title");
+  startButton.classList.add("btn", "btn-secondary", "start-button");
   startButton.textContent = "Start Quiz";
   startButton.addEventListener("click", function() {
     currentQuestion = 0;
@@ -92,6 +105,9 @@ function renderStartScreen() {
     renderQuestion();
     startTimer();
   })
+
+  content.append(startHeader);
+  content.append(startIntro);
   content.append(startButton);
 }
 
@@ -101,10 +117,12 @@ function renderQuestion(prevOutcome) {
   var questionDiv = document.createElement("div");
   var questionPrompt = document.createElement("h1");
   questionPrompt.textContent = question.prompt;
-  var answerList = document.createElement("ul");
+  // questionDiv.classList.add("start-title")
+  var answerList = document.createElement("ol");
   for (let i = 0; i < question.answers.length; i++) {
-    var li = document.createElement("li");
-    li.textContent = i + ". " + question.answers[i];
+    var li = document.createElement("ol");
+    li.classList.add("btn", "btn-secondary", "answer-button");
+    li.textContent = (i+1) + ". " + question.answers[i];
     li.addEventListener("click", function() {
       var outcome;
       if (question.correct === i) {
@@ -171,7 +189,7 @@ function renderEndScreen(prevOutcome) {
   inputGroupAppend.classList.add("input-group-append");
   var saveButton = document.createElement("button");
   saveButton.id = 'save-button';
-  saveButton.classList.add("btn", "btn-outline-secondary");
+  saveButton.classList.add("btn", "btn-secondary", "answer-button");
   saveButton.type = "submit";
   saveButton.textContent = "Save";
   inputGroupAppend.append(saveButton);
@@ -206,15 +224,19 @@ function renderHighScores() {
     li.textContent = highscores[i].initals + " - " + highscores[i].score;
     highscoreList.append(li);
   }
+
+  // Controlling the back button event listener to go back to render start screen
   var backButton = document.createElement("button");
-  backButton.classList.add("btn", "btn-secondary");
+  backButton.classList.add("btn", "btn-secondary", "score_buttons");
   backButton.textContent = "Back";
   backButton.addEventListener("click", function(event) {
     event.preventDefault();
     renderStartScreen();
   });
+
+
   var clearHighscoresButton = document.createElement("button");
-  clearHighscoresButton.classList.add("btn", "btn-secondary");
+  clearHighscoresButton.classList.add("btn", "btn-secondary", "score_buttons");
   clearHighscoresButton.textContent = "Clear Highscores";
   clearHighscoresButton.addEventListener("click", function(event) {
     event.preventDefault();

@@ -1,0 +1,32 @@
+.start-button {
+  margin: auto;
+  display: block;
+  background-color: purple;
+}
+
+.start-title {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+  text-align: center;
+}
+
+.intro-paragraph {
+  width: 600px;
+}
+
+.answer-button {
+  background-color: purple;
+  display: block;
+  text-align: left;
+  border: 3px solid white;
+}
+
+.score_buttons {
+  background-color: purple;
+  border: 10px solid white;
+}
+
+h1 {
+  border: 30px solid white;
+}
